@@ -44,38 +44,8 @@ public class FileUploadController {
         this.storageService = storageService;
     }
 
-//    @GetMapping("/")
-//    public String listUploadedFiles(Model model) throws IOException {
-//
-//        model.addAttribute("files", storageService.loadAll().map(
-//                path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-//                        "serveFile", path.getFileName().toString()).build().toString())
-//                .collect(Collectors.toList()));
-//
-//        return "uploadForm";
-//    }
-//
-//    @GetMapping("/files/{filename:.+}")
-//    @ResponseBody
-//    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-//
-//        Resource file = storageService.loadAsResource(filename);
-//        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-//                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-//    }
-
     @PostMapping("/files")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-//    	 storageService.store(file);
-//         String fileName = storageService.load(file.getOriginalFilename()).getFileName().toString();
-//         fileName = "images/"+fileName;
-//         logger.info("You've successfully saved file("+fileName+")");
-//         
-//         Optional<String> passportPhotoPath = Optional.ofNullable(passportsService.getPassport(passportid)).flatMap(passport->Optional.ofNullable(passport.getPhotoPath()));
-//         logger.info("You've retrieved file path("+passportPhotoPath.get()+")");
-//         
-//         redirectAttributes.addFlashAttribute("result", result);
-    	
     	InputStream is;
 		try {
 			is = file.getInputStream();
@@ -102,8 +72,6 @@ public class FileUploadController {
         String result = core.compareFaces(passportPhotoPath.get(), fileName);
         logger.info("Result:"+result);
         redirectAttributes.addFlashAttribute("result", result);
-        
-//        return "redirect:/";
         return result;
     }
 
@@ -111,10 +79,4 @@ public class FileUploadController {
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
     }
- 
-//    @GetMapping("/uploadStatus")
-//    public String uploadStatus() {
-//        return "uploadStatus";
-//    }
-    
 }

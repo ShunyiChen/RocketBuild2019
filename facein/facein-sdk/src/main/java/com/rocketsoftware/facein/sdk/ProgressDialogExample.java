@@ -25,7 +25,6 @@ import javafx.stage.StageStyle;
  * @author chens
  *
  */
-@SuppressWarnings("restriction")
 public class ProgressDialogExample extends Application {
 	
 	private String initMessage;
