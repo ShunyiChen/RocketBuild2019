@@ -2,13 +2,19 @@
 RocketBuild2019
 
 #### Prepare development environment
-Eclipse/IntellJ IDEA with latest version
+1.Eclipse/IntellJ IDEA with latest version
 
-JDK 1.8
+2.JDK 1.8
 
-Python 3.5.4 or 3.5.6,download installer from this link https://www.python.org/downloads/windows/
+3.Put opencv_java401.dll into current jre/bin, download opencv_java401.dll from this link https://myshare.rocketsoftware.com/myshare/d/0LNJ7JDEp 
 
-Database ORACLE/MySQL/SQL Server....
+4.Python 3.5.4 or 3.5.6,download installer from this link https://www.python.org/downloads/windows/
+
+5.Database ORACLE/MySQL/SQL Server....
+
+Create a table named 'passports'
+
+<img width="100%" height="100%" src="https://github.com/ShunyiChen/RocketBuild2019/blob/master/DBTable.jpg"/> 
 
 
 
