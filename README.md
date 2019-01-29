@@ -21,9 +21,9 @@ Create a table named 'passports'
 #### Build all packages:
 > open cmd
 
->cd facein
+> cd facein
 
->clean package -DskipTests=true
+> clean install -DskipTests=true
 
 
 #### Run
