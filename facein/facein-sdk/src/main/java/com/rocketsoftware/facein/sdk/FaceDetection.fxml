@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.CheckBox?>
+	
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.rocketsoftware.facein.sdk.FaceDetectionController">
+	<top>
+		<VBox>
+			<HBox alignment="CENTER_LEFT" spacing="10" visible="true">
+				<Button fx:id="ocrButton" alignment="center" text="Choose your passport" onAction="#choose" disable="false" />
+				<Label fx:id="txtPassportNo"/>
+				<padding>
+					<Insets top="10" bottom="10" />
+				</padding>
+				<CheckBox fx:id="haarClassifier" onAction="#haarSelected" text="Haar Classifier" selected="false"/>
+				<CheckBox fx:id="lbpClassifier" onAction="#lbpSelected" text="LBP Classifier"/>
+				<Button fx:id="cameraButton" alignment="center" text="Start camera" onAction="#startCamera" disable="false" />
+				<Button fx:id="clippingButton" alignment="center" text="Compare faces" onAction="#clipping" disable="false"/>
+			</HBox>
+			<Separator />
+		</VBox>
+	</top>
+	<center>
+		<VBox alignment="CENTER">
+			<padding>
+				<Insets right="10" left="10" />
+			</padding>
+			<ImageView fx:id="originalFrame" />
+		</VBox>
+	</center>
+	 
+</BorderPane>

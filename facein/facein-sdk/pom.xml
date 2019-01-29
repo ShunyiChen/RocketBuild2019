@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.rocketsoftware</groupId>
+    <artifactId>facein</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>facein-sdk</artifactId>
+  <name>facein-sdk</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jdk.version>1.8</jdk.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    
+	
+	<!-- RESTful -->
+ 	<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+	</dependency>
+ 	<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpmime</artifactId>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+	<dependency>
+	    <groupId>commons-logging</groupId>
+	    <artifactId>commons-logging</artifactId>
+	    <version>1.2</version>
+	</dependency>
+
+
+	<!-- Spring boot -->
+	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2 -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-log4j2</artifactId>
+	</dependency>
+
+	<!-- OCR 
+	<dependency>
+	    <groupId>com.rocketsoftware</groupId>
+        <artifactId>facein-ocrsdk</artifactId>
+        <scope>system</scope>
+        <version>0.0.1-SNAPSHOT</version>
+        <systemPath>${project.basedir}/lib/facein-ocrsdk-0.0.1-SNAPSHOT.jar</systemPath>
+	</dependency>
+	-->
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+	<dependency>
+	    <groupId>com.rocketsoftware</groupId>
+        <artifactId>facein-ocrsdk</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.opencv</groupId>
+	 	<artifactId>opencv</artifactId>
+	 	<version>401</version>
+	</dependency>
+	
+	
+	<!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
+	<dependency>
+	    <groupId>net.sourceforge.tess4j</groupId>
+	    <artifactId>tess4j</artifactId>
+	    <version>4.3.1</version>
+	</dependency>
+	
+ 
+  </dependencies>
+ 
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+	        <configuration>
+	            <mainClass>com.rocketsoftware.facein.sdk.FaceDetection</mainClass> 
+	        </configuration>
+        </plugin>
+    </plugins>
+    
+    <resources>
+        
+        <resource>
+             <directory>src/main/java</directory>
+             <targetPath>BOOT-INF/classes/</targetPath>
+             <includes>
+                 <include>**/*.fxml</include>
+                 <include>**/*.css</include>
+             </includes>
+         </resource>
+          <resource>
+             <directory>src/main/resources</directory>
+             <targetPath>BOOT-INF/classes/</targetPath>
+             <includes>
+                 <include>**/*.xml</include>
+                 <include>**/*.properties</include>
+             </includes>
+         </resource>
+         
+   </resources>
+    
+  </build>
+	
+</project>
