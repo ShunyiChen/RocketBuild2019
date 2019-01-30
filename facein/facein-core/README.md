@@ -12,6 +12,8 @@ Face match in python using Facenet and their pretrained model
 
 #### In embeded Python
 
+unzip python35.zip, rename folder python35 to python35.zip
+
 Install pip:
 
 1.Download get-pip.py, then put this file into python folder
@@ -26,7 +28,9 @@ Prepare Tenserflow libs:
 
 3.pip install opencv-python
 
-4.Run python face_match_demo.py --img1=images/daniel-radcliffe_2.jpg --img2=images/daniel-radcliffe_4.jpg
+4.pip install tensorflow
+
+5.Run python face_match_demo.py --img1=images/daniel-radcliffe_2.jpg --img2=images/daniel-radcliffe_4.jpg
 
 
 #### Cannot run program "python"问题解决
