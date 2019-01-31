@@ -1,0 +1,1 @@
+insert into passports(passportid,photopath,createddate,modifieddate) values('E61169299','images/ShunyiChen.jpg','','');

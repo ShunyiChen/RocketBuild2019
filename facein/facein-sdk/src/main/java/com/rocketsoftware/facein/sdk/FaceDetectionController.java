@@ -444,7 +444,7 @@ public class FaceDetectionController {
 		if (this.lbpClassifier.isSelected())
 			this.lbpClassifier.setSelected(false);
 //		this.checkboxSelection("resources/haarcascades/haarcascade_frontalface_alt.xml");
-		this.checkboxSelection("C:\\Users\\chens\\Documents\\development\\maxtree\\Workbench\\Police\\facein\\facein-sdk\\resources\\haarcascades\\haarcascade_frontalface_alt.xml");
+		this.checkboxSelection("C:\\Users\\chens\\Documents\\development\\rocket\\RocketBuild2019\\facein\\facein-sdk\\resources\\haarcascades\\haarcascade_frontalface_alt.xml");
 	}
 
 	/**
@@ -457,7 +457,7 @@ public class FaceDetectionController {
 		if (this.haarClassifier.isSelected())
 			this.haarClassifier.setSelected(false);
 //		this.checkboxSelection("resources/lbpcascades/lbpcascade_frontalface.xml");
-		this.checkboxSelection("C:\\Users\\chens\\Documents\\development\\maxtree\\Workbench\\Police\\facein\\facein-sdk\\resources\\lbpcascades\\lbpcascade_frontalface.xml");
+		this.checkboxSelection("C:\\Users\\chens\\Documents\\development\\rocket\\RocketBuild2019\\facein\\facein-sdk\\resources\\lbpcascades\\lbpcascade_frontalface.xml");
 	}
 
 	/**
