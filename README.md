@@ -10,9 +10,9 @@ RocketBuild2019
 
 4.Python 3.5.4 or 3.5.6,download installer from this link https://www.python.org/downloads/windows/
 
-5.Database ORACLE/MySQL/SQL Server....
+5.We don't need database ORACLE/MySQL/SQL Server....any more, we are using H2 memory database,
 
-Create a table named 'passports'
+It will automatically create a table 'passports' as shown below:
 
 <img width="100%" height="100%" src="https://github.com/ShunyiChen/RocketBuild2019/blob/master/DBTable.jpg"/> 
 
