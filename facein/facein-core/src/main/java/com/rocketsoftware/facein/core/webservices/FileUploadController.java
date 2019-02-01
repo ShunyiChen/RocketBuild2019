@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -44,22 +45,41 @@ public class FileUploadController {
         this.storageService = storageService;
     }
 
+    /**
+     * Get passportNo by the image of uploaded passport
+     * 
+     * @param file
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/files")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    	AjaxResponseBody res = new AjaxResponseBody();
     	InputStream is;
 		try {
 			is = file.getInputStream();
 			OCR ocrsdk = new OCR();
-	    	return ocrsdk.passportNo(is);
+	    	String passportNo = ocrsdk.passportNo(is);
+	    	res.setPassportNo(passportNo);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "";
+		return ResponseEntity.ok(res);
     }
     
+    /**
+     * Get the result of comparing faces
+     * 
+     * @param file
+     * @param passportid
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/files/{passportid}")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,@PathVariable String passportid,
+    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file,@PathVariable String passportid,
             RedirectAttributes redirectAttributes) {
+    	AjaxResponseBody res = new AjaxResponseBody();
+    	
         storageService.store(file);
         String fileName = storageService.load(file.getOriginalFilename()).getFileName().toString();
         fileName = "images/"+fileName;
@@ -69,10 +89,12 @@ public class FileUploadController {
         logger.info("You've retrieved file path("+passportPhotoPath.get()+")");
         
         logger.info("Start comparing two faces  ("+passportPhotoPath.get()+", "+fileName+")...");
+        // Get compare result
         String result = core.compareFaces(passportPhotoPath.get(), fileName);
+        res.setResult(result);
         logger.info("Result:"+result);
         redirectAttributes.addFlashAttribute("result", result);
-        return result;
+        return ResponseEntity.ok(res);
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

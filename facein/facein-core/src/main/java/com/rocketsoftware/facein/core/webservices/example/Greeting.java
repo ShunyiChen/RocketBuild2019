@@ -1,4 +1,4 @@
-package com.rocketsoftware.facein.core.webservices;
+package com.rocketsoftware.facein.core.webservices.example;
 
 public class Greeting {
 

@@ -30,6 +30,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
@@ -92,9 +93,14 @@ public class FaceDetectionController {
 	// face cascade classifier
 	private CascadeClassifier faceCascade;
 	private int absoluteFaceSize;
+	
+	private Mat frame = null;
+	private Rect[] facesArray = null;
 	private String passportNo = "";
 	private InputStream is = null;
 	private String url = "http://localhost:8090/api/v1/files/";
+	private CascadeClassifier mEyeDetector = new CascadeClassifier("C:\\Users\\chens\\Documents\\development\\rocket\\RocketBuild2019\\facein\\facein-sdk\\resources\\haarcascades\\haarcascade_eye_tree_eyeglasses.xml");
+	private Scalar EYE_RECT_COLOR = new Scalar(255, 123, 12);
 	
 	/**
 	 * Init the controller, at start time
@@ -138,7 +144,7 @@ public class FaceDetectionController {
 		}
 		System.out.println(result.toString());
 
-		restartCamera();
+//		restartCamera();
 
 		showAlert(result.toString());
 	}
@@ -160,6 +166,16 @@ public class FaceDetectionController {
 //	    alert.setHeaderText("Comparison results");
 //	    alert.setContentText(result);
 //	    alert.showAndWait();
+		
+		
+		Callback callback = new Callback() {
+
+			@Override
+			public void call() {
+				restartCamera();
+			}
+		};
+		
 		Platform.runLater(new Runnable() {
 			public void run() {
 
@@ -168,6 +184,9 @@ public class FaceDetectionController {
 				alert.setHeaderText("Look, face matching results:");
 				alert.setContentText(result);
 				alert.showAndWait();
+				
+				callback.call();
+				
 			}
 		});
 	}
@@ -208,13 +227,21 @@ public class FaceDetectionController {
 				}
 			};
 			
-			ProgressDialogExample pd = new ProgressDialogExample("Analyze passport information");
+			ProgressDialog pd = new ProgressDialog("Analyze passport information");
 			pd.run(callback);
 		}
 	}
 
 	@FXML
 	public void clipping() {
+		if(passportNo.isEmpty()) {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Message Here...");
+			alert.setHeaderText("");
+			alert.setContentText("No passportNo found!");
+			alert.showAndWait();
+			return;
+		}
 
 		// grab a frame every 33 ms (30 frames/sec)
 		Runnable frameGrabber = new Runnable() {
@@ -276,7 +303,7 @@ public class FaceDetectionController {
 									}
 								}
 							};
-							ProgressDialogExample p = new ProgressDialogExample("Comparing two faces...");
+							ProgressDialog p = new ProgressDialog("Comparing two faces...");
 							p.run(callback);
 
 						} else {
@@ -295,9 +322,6 @@ public class FaceDetectionController {
 
 	}
 
-	Mat frame = null;
-	Rect[] facesArray = null;
-
 	/**
 	 * The action triggered by pushing the button on the GUI
 	 */
@@ -309,7 +333,7 @@ public class FaceDetectionController {
 			this.lbpClassifier.setDisable(true);
 			// update the button content
 			cameraButton.setText("Stop Camera");
-			ProgressDialogExample progress = new ProgressDialogExample("Starting the camera...");
+			ProgressDialog progress = new ProgressDialog("Starting the camera...");
 
 			Callback callback = new Callback() {
 
@@ -415,7 +439,7 @@ public class FaceDetectionController {
 		// detect faces
 		this.faceCascade.detectMultiScale(grayFrame, faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
 				new Size(this.absoluteFaceSize, this.absoluteFaceSize), new Size());
-
+		
 		// each rectangle in faces is a face: draw them!
 		// draw green rectangle
 		facesArray = faces.toArray();
@@ -431,6 +455,42 @@ public class FaceDetectionController {
 //			Imgproc.rectangle(frame, facesArray[i].tl(), facesArray[i].br(), new Scalar(0, 255, 0), 3);
 			Imgproc.rectangle(frame, p1, p2, new Scalar(0, 255, 0), 3);
 		}
+		
+		// 识别眼睛
+		
+		MatOfRect eyes = new MatOfRect();
+		if (facesArray.length > 0) {
+			Rect roi = new Rect((int) facesArray[0].tl().x, (int) (facesArray[0].tl().y), facesArray[0].width,
+					(int) (facesArray[0].height));// imran
+			// taking inputs from nustrat opencv example
+			// imran check above, using tl of x and tl of y.other wise it will give runtime
+			// errors
+			Mat cropped = new Mat();
+			// cropped = mGray.submat(facesArray[0]);//imran yuppie!, this did the
+			// trick!...everything else was failing
+			// refer to opencv 2.4 tut pdf
+			cropped = grayFrame.submat(roi);
+			// cropped.copyTo(mGray.submat(roi));
+			if (mEyeDetector != null) {
+				mEyeDetector.detectMultiScale(cropped, eyes, 1.15, 2, Objdetect.CASCADE_FIND_BIGGEST_OBJECT | Objdetect.CASCADE_SCALE_IMAGE, new Size(30, 30),new Size());
+			}
+		} else {
+//			System.out.println("mEyeDetector is NULL");
+		}
+		
+		Rect[] eyesArray;
+		eyesArray = eyes.toArray();
+		System.out.println("Eyes Count：" + eyesArray.length);
+		Point x1 = new Point();
+		for (int i = 0; i < eyesArray.length; i++) {
+			
+			x1.x = facesArray[0].x + eyesArray[i].x + eyesArray[i].width * 0.5;
+			x1.y = facesArray[0].y + eyesArray[i].y + eyesArray[i].height * 0.5;
+			int Radius = (int) ((eyesArray[i].width + eyesArray[i].height) * 0.25);
+			Imgproc.circle(frame, x1, Radius, EYE_RECT_COLOR, 3);
+		}
+		
+		
 		this.frame = frame;
 	}
 

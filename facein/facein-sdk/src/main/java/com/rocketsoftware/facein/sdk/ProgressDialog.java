@@ -25,15 +25,15 @@ import javafx.stage.StageStyle;
  * @author chens
  *
  */
-public class ProgressDialogExample extends Application {
+public class ProgressDialog extends Application {
 	
 	private String initMessage;
 	
-	public ProgressDialogExample() {
+	public ProgressDialog() {
 		this("");
 	}
 	
-	public ProgressDialogExample(String initMessage) {
+	public ProgressDialog(String initMessage) {
 		this.initMessage = initMessage;
 	}
 
