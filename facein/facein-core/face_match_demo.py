@@ -69,6 +69,6 @@ def compare2face(img1,img2):
 img1 = cv2.imread(args.img1)
 img2 = cv2.imread(args.img2)
 distance = compare2face(img1, img2)
-threshold = 1.10    # set yourself to meet your requirement
+threshold = 0.7 #1.10    # set yourself to meet your requirement
 print("distance = "+str(distance))
 print("Result = " + ("same person" if distance <= threshold and distance != -1 else "not same person"))
