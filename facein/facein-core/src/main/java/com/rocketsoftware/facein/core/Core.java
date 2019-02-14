@@ -40,12 +40,12 @@ public class Core
 			while ((line = reader.readLine()) != null) {
 				System.out.println("python stdout: " + line);
 				if(line.equals("Result = same person")) {
-					return "same person";
+					return "Same Person";
 				}
 			}
 		} catch (IOException e) {
 			System.out.println("Exception in reading output" + e.toString());
 		}
-		return "not same person";
+		return "Not Same Person";
 	}
 }
