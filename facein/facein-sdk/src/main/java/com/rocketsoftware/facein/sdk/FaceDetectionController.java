@@ -445,54 +445,53 @@ public class FaceDetectionController {
 		facesArray = faces.toArray();
 		for (int i = 0; i < facesArray.length; i++) {
 			Point p1 = new Point();
-			p1.x = facesArray[i].tl().x - 3;
-			p1.y = facesArray[i].tl().y - 3;
+			p1.x = facesArray[i].tl().x - 33;
+			p1.y = facesArray[i].tl().y - 33;
 			
 			Point p2 = new Point();
-			p2.x = facesArray[i].br().x + 3;
-			p2.y = facesArray[i].br().y + 3;
+			p2.x = facesArray[i].br().x + 33;
+			p2.y = facesArray[i].br().y + 33;
 			
 //			Imgproc.rectangle(frame, facesArray[i].tl(), facesArray[i].br(), new Scalar(0, 255, 0), 3);
 			Imgproc.rectangle(frame, p1, p2, new Scalar(0, 255, 0), 3);
 		}
 		
 		// 识别眼睛
-		
-		MatOfRect eyes = new MatOfRect();
-		if (facesArray.length > 0) {
-			Rect roi = new Rect((int) facesArray[0].tl().x, (int) (facesArray[0].tl().y), facesArray[0].width,
-					(int) (facesArray[0].height));// imran
-			// taking inputs from nustrat opencv example
-			// imran check above, using tl of x and tl of y.other wise it will give runtime
-			// errors
-			Mat cropped = new Mat();
-			// cropped = mGray.submat(facesArray[0]);//imran yuppie!, this did the
-			// trick!...everything else was failing
-			// refer to opencv 2.4 tut pdf
-			cropped = grayFrame.submat(roi);
-			// cropped.copyTo(mGray.submat(roi));
-			if (mEyeDetector != null) {
-				mEyeDetector.detectMultiScale(cropped, eyes, 1.15, 2, Objdetect.CASCADE_FIND_BIGGEST_OBJECT | Objdetect.CASCADE_SCALE_IMAGE, new Size(30, 30),new Size());
-			}
-		} else {
+//		MatOfRect eyes = new MatOfRect();
+//		if (facesArray.length > 0) {
+//			Rect roi = new Rect((int) facesArray[0].tl().x, (int) (facesArray[0].tl().y), facesArray[0].width,
+//					(int) (facesArray[0].height));// imran
+//			// taking inputs from nustrat opencv example
+//			// imran check above, using tl of x and tl of y.other wise it will give runtime
+//			// errors
+//			Mat cropped = new Mat();
+//			// cropped = mGray.submat(facesArray[0]);//imran yuppie!, this did the
+//			// trick!...everything else was failing
+//			// refer to opencv 2.4 tut pdf
+//			cropped = grayFrame.submat(roi);
+//			// cropped.copyTo(mGray.submat(roi));
+//			if (mEyeDetector != null) {
+//				mEyeDetector.detectMultiScale(cropped, eyes, 1.15, 2, Objdetect.CASCADE_FIND_BIGGEST_OBJECT | Objdetect.CASCADE_SCALE_IMAGE, new Size(30, 30),new Size());
+//			}
+//		} else {
 //			System.out.println("mEyeDetector is NULL");
-		}
-		
-		Rect[] eyesArray;
-		eyesArray = eyes.toArray();
-		System.out.println("Eyes Count：" + eyesArray.length);
-		Point x1 = new Point();
-		for (int i = 0; i < eyesArray.length; i++) {
-			
-			x1.x = facesArray[0].x + eyesArray[i].x + eyesArray[i].width * 0.5;
-			x1.y = facesArray[0].y + eyesArray[i].y + eyesArray[i].height * 0.5;
-			int Radius = (int) ((eyesArray[i].width + eyesArray[i].height) * 0.25);
-			Imgproc.circle(frame, x1, Radius, EYE_RECT_COLOR, 3);
-		}
-		
+//		}
+//		Rect[] eyesArray;
+//		eyesArray = eyes.toArray();
+//		System.out.println("Eyes Count：" + eyesArray.length);
+//		Point x1 = new Point();
+//		for (int i = 0; i < eyesArray.length; i++) {
+//			x1.x = facesArray[0].x + eyesArray[i].x + eyesArray[i].width * 0.5;
+//			x1.y = facesArray[0].y + eyesArray[i].y + eyesArray[i].height * 0.5;
+//			
+//			int Radius = (int) ((eyesArray[i].width + eyesArray[i].height) * 0.25);
+//			Imgproc.circle(frame, x1, Radius, EYE_RECT_COLOR, 3);
+//		}
 		
 		this.frame = frame;
 	}
+	
+	double oldX = 0;
 
 	/**
 	 * The action triggered by selecting the Haar Classifier checkbox. It loads the
