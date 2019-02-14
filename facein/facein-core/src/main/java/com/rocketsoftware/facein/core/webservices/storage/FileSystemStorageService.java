@@ -29,7 +29,8 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public void store(MultipartFile file) {
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+//        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+    	String filename = "abc.png";
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + filename);

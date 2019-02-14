@@ -81,7 +81,8 @@ public class FileUploadController {
     	AjaxResponseBody res = new AjaxResponseBody();
     	
         storageService.store(file);
-        String fileName = storageService.load(file.getOriginalFilename()).getFileName().toString();
+//        String fileName = storageService.load(file.getOriginalFilename()).getFileName().toString();
+        String fileName = storageService.load("abc.png").getFileName().toString();
         fileName = "images/"+fileName;
         logger.info("You've successfully saved file("+fileName+")");
         
