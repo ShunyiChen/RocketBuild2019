@@ -269,8 +269,14 @@ public class FaceDetectionController {
 						boolean catched = false;
 						
 						for (int i = 0; i < facesArray.length; i++) {
-							BufferedImage subImage = image.getSubimage(facesArray[i].x, facesArray[i].y,
-									facesArray[i].width, facesArray[i].height);
+//							BufferedImage subImage = image.getSubimage(facesArray[i].x, facesArray[i].y,
+//									facesArray[i].width, facesArray[i].height);
+							int x = (int) p1.x;
+							int y = (int) p1.y;
+							int w = (int) (p2.x - p1.x);
+							int h = (int) (p2.y - p1.y);
+							BufferedImage subImage = image.getSubimage(x, y, w, h);
+							
 							ByteArrayOutputStream output = new ByteArrayOutputStream();  
 							try {
 								ImageIO.write(subImage, "png", output);
@@ -413,6 +419,9 @@ public class FaceDetectionController {
 
 		return frame;
 	}
+	
+	Point p1 = new Point();
+	Point p2 = new Point();
 
 	/**
 	 * Method for face detection and tracking
@@ -444,11 +453,8 @@ public class FaceDetectionController {
 		// draw green rectangle
 		facesArray = faces.toArray();
 		for (int i = 0; i < facesArray.length; i++) {
-			Point p1 = new Point();
 			p1.x = facesArray[i].tl().x - 33;
 			p1.y = facesArray[i].tl().y - 33;
-			
-			Point p2 = new Point();
 			p2.x = facesArray[i].br().x + 33;
 			p2.y = facesArray[i].br().y + 33;
 			
