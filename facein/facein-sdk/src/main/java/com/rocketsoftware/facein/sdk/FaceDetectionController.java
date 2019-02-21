@@ -98,8 +98,9 @@ public class FaceDetectionController {
 	private Rect[] facesArray = null;
 	private String passportNo = "";
 	private InputStream is = null;
-	private String url = "http://localhost:8090/api/v1/files/";
-	private CascadeClassifier mEyeDetector = new CascadeClassifier("C:\\Users\\chens\\Documents\\development\\rocket\\RocketBuild2019\\facein\\facein-sdk\\resources\\haarcascades\\haarcascade_eye_tree_eyeglasses.xml");
+//	private String url = "http://localhost:8060/facein/api/v1/files/";
+	private String url = "http://10.48.5.40:8090/api/v1/files/";
+//	private CascadeClassifier mEyeDetector = new CascadeClassifier("C:\\Users\\chens\\Documents\\development\\rocket\\RocketBuild2019\\facein\\facein-sdk\\resources\\haarcascades\\haarcascade_eye_tree_eyeglasses.xml");
 	private Scalar EYE_RECT_COLOR = new Scalar(255, 123, 12);
 	
 	/**
@@ -275,7 +276,7 @@ public class FaceDetectionController {
 							int y = (int) p1.y;
 							int w = (int) (p2.x - p1.x);
 							int h = (int) (p2.y - p1.y);
-							BufferedImage subImage = image.getSubimage(x, y, w, h);
+							BufferedImage subImage = image.getSubimage(x+5, y+5, w - 10, h - 10);
 							
 							ByteArrayOutputStream output = new ByteArrayOutputStream();  
 							try {
@@ -509,7 +510,7 @@ public class FaceDetectionController {
 		if (this.lbpClassifier.isSelected())
 			this.lbpClassifier.setSelected(false);
 //		this.checkboxSelection("resources/haarcascades/haarcascade_frontalface_alt.xml");
-		this.checkboxSelection("C:\\Users\\chens\\Documents\\development\\rocket\\RocketBuild2019\\facein\\facein-sdk\\resources\\haarcascades\\haarcascade_frontalface_alt.xml");
+		this.checkboxSelection("C:\\haarcascades\\haarcascade_frontalface_alt.xml");
 	}
 
 	/**
@@ -522,7 +523,7 @@ public class FaceDetectionController {
 		if (this.haarClassifier.isSelected())
 			this.haarClassifier.setSelected(false);
 //		this.checkboxSelection("resources/lbpcascades/lbpcascade_frontalface.xml");
-		this.checkboxSelection("C:\\Users\\chens\\Documents\\development\\rocket\\RocketBuild2019\\facein\\facein-sdk\\resources\\lbpcascades\\lbpcascade_frontalface.xml");
+		this.checkboxSelection("C:\\lbpcascades\\lbpcascade_frontalface.xml");
 	}
 
 	/**

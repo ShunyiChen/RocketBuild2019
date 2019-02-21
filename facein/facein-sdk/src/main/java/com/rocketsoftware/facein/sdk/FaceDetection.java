@@ -12,7 +12,7 @@ import javafx.fxml.FXMLLoader;
 
 /**
  * 
- * @author chens
+ * @author chensh
  *
  */
 public class FaceDetection extends Application

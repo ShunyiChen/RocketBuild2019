@@ -34,7 +34,7 @@ public class FileUploadControllerTests {
 	 * 
 	 * @throws Exception
 	 */
-	@Test
+//	@Test
 	public void handleFileUpload() throws Exception {
 		logger.info("Run handleFileUpload()");
 		FileInputStream fi2 = new FileInputStream(new File("images/Barack_Obama.jpg"));
@@ -55,7 +55,7 @@ public class FileUploadControllerTests {
 	@Test
 	public void handleFileUpload2() throws Exception {
 		logger.info("Run handleFileUpload2()");
-		FileInputStream fi2 = new FileInputStream(new File("C:\\Users\\chens\\Desktop\\LocalBuild2019\\QQ截图20190129151231.jpg"));
+		FileInputStream fi2 = new FileInputStream(new File("C:\\images\\amitab_young.jpg"));
 		MockMultipartFile secmp = new MockMultipartFile("file", "IMG_7234.JPG","multipart/form-data",fi2); 
         this.mockMvc.perform(MockMvcRequestBuilders.multipart("/api/v1/files").file(secmp))
         .andExpect(matchAll(

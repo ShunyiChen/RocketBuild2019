@@ -93,6 +93,7 @@ public class FileUploadController {
         // Get compare result
         String result = core.compareFaces(passportPhotoPath.get(), fileName);
         res.setResult(result);
+        res.setPassportNo(passportid);
         logger.info("Result:"+result);
         redirectAttributes.addFlashAttribute("result", result);
         return ResponseEntity.ok(res);

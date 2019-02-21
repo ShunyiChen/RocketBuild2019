@@ -25,7 +25,7 @@ import net.sourceforge.tess4j.TesseractException;
  */
 public class OCR {
 
-	private static final String datapath = "C:\\Users\\chens\\Downloads\\tess4j\\src\\main\\resources\\tessdata";
+	private static final String datapath = "C:\\tessdata";
 	
 	public String passportNo(InputStream is) throws IOException {
 	    Image image = ImageIO.read(is);
